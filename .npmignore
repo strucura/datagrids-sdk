@@ -1,0 +1,15 @@
+/src
+/node_modules
+/tests
+/.github
+/.idea
+
+.env
+.DS_Store
+.prettierrc
+.eslint.config.mjs
+.jest.config.ts
+
+tsconfig.json
+tsup.config.ts
+

@@ -1,0 +1,29 @@
+{
+  "name": "@strucura/datagrids-sdk",
+  "version": "1.0.0",
+  "description": "A package for building composable filters and filter sets for the strucura/datagrids Laravel package",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.mjs",
+  "scripts": {
+    "test": "jest",
+    "build": "tsup",
+    "lint": "eslint 'src/**/*.{js,ts,jsx,tsx}' --fix",
+    "prettier": "prettier --write src/**/*"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.19.0",
+    "@types/jest": "^29.5.14",
+    "eslint": "^9.19.0",
+    "globals": "^15.14.0",
+    "jest": "^29.7.0",
+    "prettier": "3.4.2",
+    "prettier-plugin-organize-imports": "^4.1.0",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.3.6",
+    "typescript-eslint": "^8.22.0"
+  }
+}
