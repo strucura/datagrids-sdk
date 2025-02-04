@@ -27,8 +27,8 @@ interface UserDataGrid {
     id: number;
     name: string;
     age: number;
-    created_at: Date;
-    updated_at: Date;
+    created_at: string;
+    updated_at: string;
 }
 
 const url = 'https://example.com/api/data-grid';
@@ -36,12 +36,16 @@ const headers = {
     Authorization: 'Bearer your-token',
 };
 
-const rows = await fetchDataGridRows<UserDataGrid>(url, (builder) => builder
-        .addFilterSet(FilterSetOperator.AND, (filterBuilder) => {
-            filterBuilder.contains('name', 'John');
-        })
-        .addSort('created_at', 'desc')
-        .firstRow(0)
-        .lastRow(50)
-, headers);
+fetchDataGridRows<UserDataGrid>(url, dataGridBuilder => dataGridBuilder
+    .addFilterSet(filterBuilder => {
+        filterBuilder.contains('name', 'John');
+    })
+    .addSort('created_at', SortDirection.DESC)
+    .firstRow(0)
+    .lastRow(50)
+).then((rows) => {
+    console.log(rows);
+}).catch((error) => {
+    console.log(error);
+})
 ```
