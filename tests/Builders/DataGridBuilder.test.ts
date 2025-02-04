@@ -2,6 +2,7 @@ import DataGridBuilder from '@/Builders/DataGridBuilder.ts';
 import FilterBuilder from '@/Builders/FilterBuilder';
 import { FilterSetOperator } from '@/Enums/FilterSetOperator';
 import { FilterOperator } from '@/Enums/FilterOperator';
+import { SortDirection } from '@/Enums/SortDirection.ts';
 
 interface UserDataGrid {
     id: number;
@@ -19,57 +20,49 @@ describe('DataGridBuilder', () => {
     });
 
     test('should add a filter set with AND operator', () => {
-        dataGridBuilder.addFilterSet(FilterSetOperator.AND, (builder: FilterBuilder<UserDataGrid>) => {
+        dataGridBuilder.addFilterSet((builder: FilterBuilder<UserDataGrid>) => {
             builder.startsWith('name', 'John');
         });
         const { filter_sets } = dataGridBuilder.build();
         expect(filter_sets).toEqual([
             {
                 filter_set_operator: FilterSetOperator.AND,
-                filters: [
-                    { alias: 'name', filter_operator: FilterOperator.STARTS_WITH, value: 'John' }
-                ]
-            }
+                filters: [{ alias: 'name', filter_operator: FilterOperator.STARTS_WITH, value: 'John' }],
+            },
         ]);
     });
 
     test('should add a filter set with OR operator', () => {
-        dataGridBuilder.addFilterSet(FilterSetOperator.OR, (builder: FilterBuilder<UserDataGrid>) => {
+        dataGridBuilder.addFilterSet((builder: FilterBuilder<UserDataGrid>) => {
             builder.contains('name', 'Doe');
-        });
+        }, FilterSetOperator.OR);
         const { filter_sets } = dataGridBuilder.build();
         expect(filter_sets).toEqual([
             {
                 filter_set_operator: FilterSetOperator.OR,
-                filters: [
-                    { alias: 'name', filter_operator: FilterOperator.CONTAINS, value: 'Doe' }
-                ]
-            }
+                filters: [{ alias: 'name', filter_operator: FilterOperator.CONTAINS, value: 'Doe' }],
+            },
         ]);
     });
 
     test('should add multiple filter sets', () => {
         dataGridBuilder
-            .addFilterSet(FilterSetOperator.AND, (builder: FilterBuilder<UserDataGrid>) => {
+            .addFilterSet((builder: FilterBuilder<UserDataGrid>) => {
                 builder.startsWith('name', 'John');
             })
-            .addFilterSet(FilterSetOperator.OR, (builder: FilterBuilder<UserDataGrid>) => {
+            .addFilterSet((builder: FilterBuilder<UserDataGrid>) => {
                 builder.equals('age', 30);
-            });
+            }, FilterSetOperator.OR);
         const { filter_sets } = dataGridBuilder.build();
         expect(filter_sets).toEqual([
             {
                 filter_set_operator: FilterSetOperator.AND,
-                filters: [
-                    { alias: 'name', filter_operator: FilterOperator.STARTS_WITH, value: 'John' }
-                ]
+                filters: [{ alias: 'name', filter_operator: FilterOperator.STARTS_WITH, value: 'John' }],
             },
             {
                 filter_set_operator: FilterSetOperator.OR,
-                filters: [
-                    { alias: 'age', filter_operator: FilterOperator.EQUALS, value: 30 }
-                ]
-            }
+                filters: [{ alias: 'age', filter_operator: FilterOperator.EQUALS, value: 30 }],
+            },
         ]);
     });
 
@@ -86,29 +79,22 @@ describe('DataGridBuilder', () => {
     });
 
     test('should add a sort by id in ascending order', () => {
-        dataGridBuilder.addSort('id', 'asc');
-        const {sorts} = dataGridBuilder.build();
-        expect(sorts).toEqual([
-            { alias: 'id', direction: 'asc' }
-        ]);
+        dataGridBuilder.addSort('id', SortDirection.ASC);
+        const { sorts } = dataGridBuilder.build();
+        expect(sorts).toEqual([{ alias: 'id', direction: SortDirection.ASC }]);
     });
 
     test('should add a sort by name in descending order', () => {
-        dataGridBuilder.addSort('name', 'desc');
-        const {sorts} = dataGridBuilder.build();
-        expect(sorts).toEqual([
-            { alias: 'name', direction: 'desc' }
-        ]);
+        dataGridBuilder.addSort('name', SortDirection.DESC);
+        const { sorts } = dataGridBuilder.build();
+        expect(sorts).toEqual([{ alias: 'name', direction: SortDirection.DESC }]);
     });
 
     test('should add multiple sorts', () => {
-        const { sorts } = dataGridBuilder
-            .addSort('id', 'asc')
-            .addSort('name', 'desc')
-            .build();
+        const { sorts } = dataGridBuilder.addSort('id', SortDirection.ASC).addSort('name', SortDirection.DESC).build();
         expect(sorts).toEqual([
-            { alias: 'id', direction: 'asc' },
-            { alias: 'name', direction: 'desc' }
+            { alias: 'id', direction: SortDirection.ASC },
+            { alias: 'name', direction: SortDirection.DESC },
         ]);
     });
 });

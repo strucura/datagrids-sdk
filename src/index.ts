@@ -1,5 +1,6 @@
 export * from './Enums/FilterOperator';
 export * from './Enums/FilterSetOperator';
+export * from './Enums/SortDirection';
 export * from './Interfaces/Filter';
 export * from './Interfaces/FilterSet';
 export { default as FilterBuilder } from './Builders/FilterBuilder';

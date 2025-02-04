@@ -1,6 +1,6 @@
 {
   "name": "@strucura/datagrids-sdk",
-  "version": "1.3.0",
+  "version": "2.0.0",
   "description": "A package for building composable filters and filter sets for the strucura/datagrids Laravel package",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
