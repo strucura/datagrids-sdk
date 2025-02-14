@@ -4,7 +4,10 @@ export default async function fetchDataGridRows<T>(
     url: string,
     closure: (builder: DataGridBuilder<T>) => DataGridBuilder<T>,
     headers: HeadersInit = {},
-): Promise<T[]> {
+): Promise<{
+    rows: T[];
+    total_row_count: number;
+}> {
     const builder = DataGridBuilder.make<T>();
     closure(builder);
 
