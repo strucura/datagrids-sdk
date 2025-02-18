@@ -2,7 +2,7 @@ import FilterBuilder from '@/Builders/FilterBuilder';
 import { FilterSetOperator } from '@/Enums/FilterSetOperator';
 import { FilterSet } from '@/Interfaces/FilterSet';
 import { Sort } from '@/Interfaces/Sort';
-import { SortDirection } from '@/Enums/SortDirection.ts';
+import { SortOperator } from '@/Enums/SortOperator.ts';
 
 export default class DataGridBuilder<T> {
     protected first: number = 0;
@@ -29,8 +29,8 @@ export default class DataGridBuilder<T> {
         return this;
     }
 
-    addSort<K extends keyof T>(alias: K, direction: SortDirection = SortDirection.ASC): this {
-        this.sorts.push({ alias, direction });
+    addSort<K extends keyof T>(alias: K, sort_operator: SortOperator = SortOperator.ASC): this {
+        this.sorts.push({ alias, sort_operator });
         return this;
     }
 

@@ -2,7 +2,7 @@ import DataGridBuilder from '@/Builders/DataGridBuilder.ts';
 import FilterBuilder from '@/Builders/FilterBuilder';
 import { FilterSetOperator } from '@/Enums/FilterSetOperator';
 import { FilterOperator } from '@/Enums/FilterOperator';
-import { SortDirection } from '@/Enums/SortDirection.ts';
+import { SortOperator } from '@/Enums/SortOperator.ts';
 
 interface UserDataGrid {
     id: number;
@@ -79,22 +79,22 @@ describe('DataGridBuilder', () => {
     });
 
     test('should add a sort by id in ascending order', () => {
-        dataGridBuilder.addSort('id', SortDirection.ASC);
+        dataGridBuilder.addSort('id', SortOperator.ASC);
         const { sorts } = dataGridBuilder.build();
-        expect(sorts).toEqual([{ alias: 'id', direction: SortDirection.ASC }]);
+        expect(sorts).toEqual([{ alias: 'id', direction: SortOperator.ASC }]);
     });
 
     test('should add a sort by name in descending order', () => {
-        dataGridBuilder.addSort('name', SortDirection.DESC);
+        dataGridBuilder.addSort('name', SortOperator.DESC);
         const { sorts } = dataGridBuilder.build();
-        expect(sorts).toEqual([{ alias: 'name', direction: SortDirection.DESC }]);
+        expect(sorts).toEqual([{ alias: 'name', direction: SortOperator.DESC }]);
     });
 
     test('should add multiple sorts', () => {
-        const { sorts } = dataGridBuilder.addSort('id', SortDirection.ASC).addSort('name', SortDirection.DESC).build();
+        const { sorts } = dataGridBuilder.addSort('id', SortOperator.ASC).addSort('name', SortOperator.DESC).build();
         expect(sorts).toEqual([
-            { alias: 'id', direction: SortDirection.ASC },
-            { alias: 'name', direction: SortDirection.DESC },
+            { alias: 'id', direction: SortOperator.ASC },
+            { alias: 'name', direction: SortOperator.DESC },
         ]);
     });
 });

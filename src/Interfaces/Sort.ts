@@ -1,4 +1,4 @@
 export interface Sort<T> {
     alias: keyof T;
-    direction: 'asc' | 'desc';
+    sort_operator: 'asc' | 'desc';
 }
