@@ -81,20 +81,20 @@ describe('DataGridBuilder', () => {
     test('should add a sort by id in ascending order', () => {
         dataGridBuilder.addSort('id', SortOperator.ASC);
         const { sorts } = dataGridBuilder.build();
-        expect(sorts).toEqual([{ alias: 'id', direction: SortOperator.ASC }]);
+        expect(sorts).toEqual([{ alias: 'id', sort_operator: SortOperator.ASC }]);
     });
 
     test('should add a sort by name in descending order', () => {
         dataGridBuilder.addSort('name', SortOperator.DESC);
         const { sorts } = dataGridBuilder.build();
-        expect(sorts).toEqual([{ alias: 'name', direction: SortOperator.DESC }]);
+        expect(sorts).toEqual([{ alias: 'name', sort_operator: SortOperator.DESC }]);
     });
 
     test('should add multiple sorts', () => {
         const { sorts } = dataGridBuilder.addSort('id', SortOperator.ASC).addSort('name', SortOperator.DESC).build();
         expect(sorts).toEqual([
-            { alias: 'id', direction: SortOperator.ASC },
-            { alias: 'name', direction: SortOperator.DESC },
+            { alias: 'id', sort_operator: SortOperator.ASC },
+            { alias: 'name', sort_operator: SortOperator.DESC },
         ]);
     });
 });
